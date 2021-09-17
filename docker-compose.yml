@@ -1,0 +1,29 @@
+version: '3.3'
+services:
+  yii:
+    build:
+      dockerfile: Dockerfile
+      context: 'yii'
+    image: "skysoft/docker:7-4-apache"
+    ports:
+      - "89:80"
+    volumes:
+      - ./tests:/tests:delegated
+      # Application
+      - ./_volumes/yii/app:/app:delegated
+    environment:
+      - TZ=${TZ}
+  db:
+    build:
+      dockerfile: Dockerfile
+      context: "db"
+    image: "skysoft/mysql:8.0"
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./_volumes/db/var/lib:/var/lib/mysql:delegated
+    environment:
+      - TZ=${TZ}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
