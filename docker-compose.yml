@@ -4,10 +4,12 @@ services:
     build:
       dockerfile: Dockerfile
       context: 'yii'
-    image: "skysoft/docker:7-4-apache"
+    image: "skysoft/yii:7-4-apache"
     ports:
-      - "89:80"
+      - "90:80"
+      - "443:443"
     volumes:
+      # Test
       - ./tests:/tests:delegated
       # Application
       - ./_volumes/yii/app:/app:delegated
@@ -17,7 +19,7 @@ services:
     build:
       dockerfile: Dockerfile
       context: "db"
-    image: "skysoft/mysql:8.0"
+    image: "skysoft/mysql:8.0.26"
     ports:
       - "3306:3306"
     volumes:

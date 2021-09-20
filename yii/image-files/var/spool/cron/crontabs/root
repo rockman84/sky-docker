@@ -1,0 +1,6 @@
+# ### Yii Queue System ###
+*   *   *   *   *   /app/yii queue/run >/dev/null 2>&1
+
+# ### Test Cron Running
+*   *   *   *   *   echo "Test Cron is Running" > /var/log/cron.log 2>&1
+
