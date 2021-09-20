@@ -1,6 +1,7 @@
 version: '3.3'
 services:
   yii:
+    container_name: "sky-docker_yii"
     build:
       dockerfile: Dockerfile
       context: 'yii'
@@ -15,7 +16,13 @@ services:
       - ./_volumes/yii/app:/app:delegated
     environment:
       - TZ=${TZ}
+      - EMAIL_ADDRESS=${EMAIL_ADDRESS}
+      - DOMAIN_NAME=${DOMAIN_NAME}
+      - SSLCertificateFile=${SSLCertificateFile}
+      - SSLCertificateKeyFile=${SSLCertificateKeyFile}
+      - SSLCertificateChainFile=${SSLCertificateChainFile}
   db:
+    container_name: "sky-docker_db"
     build:
       dockerfile: Dockerfile
       context: "db"
@@ -23,6 +30,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
+      - ./_volumes/db/var/dump:/var/dump:delegated
       - ./_volumes/db/var/lib:/var/lib/mysql:delegated
     environment:
       - TZ=${TZ}
